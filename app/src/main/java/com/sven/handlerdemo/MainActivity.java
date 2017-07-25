@@ -23,8 +23,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tv = (TextView) findViewById(R.id.tv);
-
-        handler1 = new Handler(){
+        handler1 = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(Message msg) {
+                Log.i(TAG, "msg = "+msg.what);
+                tv.setText("哈哈, 我拦截了！！！");
+                return false;
+            }
+        }){
             @Override
             public void handleMessage(Message msg) {
 //                super.handleMessage(msg);
@@ -40,14 +46,16 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        new Thread(new Runnable() {
+
+       new Thread(new Runnable() {
             @Override
             public void run() {
 //                Looper.prepare();
 //                handler2 = new Handler();
 //                Message msg = Message.obtain();
 //                wait3seconds();
-//                handler1.sendEmptyMessage(0);
+
+                handler1.sendEmptyMessage(0);
 //                handler1.post(new Runnable() {
 //                    @Override
 //                    public void run() {
@@ -55,17 +63,20 @@ public class MainActivity extends AppCompatActivity {
 //                        tv.setText("呵呵");
 //                    }
 //                });
-                Log.i(TAG,"1111");
-                tv.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.i(TAG,"2222");
-                        tv.setText("嘿嘿");
-                    }
-                });
+//                Log.i(TAG,"1111");
+//                boolean b =
+//                        tv.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Log.i(TAG,"2222");
+//                        tv.setText("嘿嘿");
+//                    }
+//                });
+//                Log.i(TAG, "b = "+b);
 //                MainActivity.this.runOnUiThread(new Runnable() {
 //                    @Override
 //                    public void run() {
+//                        wait3seconds();
 //                        tv.setText("哦哦");
 //                    }
 //                });
