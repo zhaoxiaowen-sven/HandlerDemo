@@ -9,9 +9,12 @@
 
 <TextView
     android:id="@+id/tv"
-    android:onClick="onclick"
     android:text="hello world"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" />
-
+<Button
+    android:onClick="onclick"
+    android:text="更新UI"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
 </LinearLayout>

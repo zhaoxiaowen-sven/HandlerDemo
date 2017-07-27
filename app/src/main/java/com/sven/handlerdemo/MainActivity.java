@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "HandleDemo";
+    private static final String TAG = "HandlerDemo";
     private TextView tv;
 
     private Handler handler1;
@@ -22,7 +22,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         tv = (TextView) findViewById(R.id.tv);
+
         handler1 = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(Message msg) {
@@ -45,9 +47,19 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+    }
 
+    private void wait3seconds() {
+        try {
+            Thread.sleep(10*1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
-       new Thread(new Runnable() {
+    public void onclick(View v){
+//        switch (v)
+        new Thread(new Runnable() {
             @Override
             public void run() {
 //                Looper.prepare();
@@ -55,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 //                Message msg = Message.obtain();
 //                wait3seconds();
 
-                handler1.sendEmptyMessage(0);
+//                handler1.sendEmptyMessage(0);
 //                handler1.post(new Runnable() {
 //                    @Override
 //                    public void run() {
@@ -64,14 +76,15 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 //                });
 //                Log.i(TAG,"1111");
-//                boolean b =
-//                        tv.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Log.i(TAG,"2222");
-//                        tv.setText("嘿嘿");
-//                    }
-//                });
+                boolean b =
+                        tv.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.i(TAG,"2222");
+                                wait3seconds();
+                                tv.setText("嘿嘿");
+                            }
+                        });
 //                Log.i(TAG, "b = "+b);
 //                MainActivity.this.runOnUiThread(new Runnable() {
 //                    @Override
@@ -82,17 +95,5 @@ public class MainActivity extends AppCompatActivity {
 //                });
             }
         }).start();
-    }
-
-    private void wait3seconds() {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void onclick(View v){
-//        switch (v)
     }
 }
