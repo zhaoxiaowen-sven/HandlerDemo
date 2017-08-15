@@ -57,9 +57,15 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
+    private void getTname(){
+        long id = Thread.currentThread().getId();
+        String name = Thread.currentThread().getName();
+        Log.i(TAG,"id = "+id + ", name = "+name);
+    }
+
     private void wait3seconds() {
         try {
-            Thread.sleep(10*1000);
+            Thread.sleep(30*1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -135,23 +141,25 @@ public class MainActivity extends AppCompatActivity {
 //                wait3seconds();
 
 //                handler1.sendEmptyMessage(0);
-//                handler1.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        wait3seconds();
-//                        tv.setText("呵呵");
-//                    }
-//                });
+                handler1.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        getTname();
+                        wait3seconds();
+                        tv.setText("呵呵");
+                    }
+                });
 //                Log.i(TAG,"1111");
-                boolean b =
-                        tv.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Log.i(TAG,"2222");
-                                wait3seconds();
-                                tv.setText("嘿嘿");
-                            }
-                        });
+//                boolean b =
+//                        tv.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                Log.i(TAG,"2222");
+//                                getTname();
+//                                wait3seconds();
+//                                tv.setText("嘿嘿");
+//                            }
+//                        });
 //                Log.i(TAG, "b = "+b);
 //                MainActivity.this.runOnUiThread(new Runnable() {
 //                    @Override
